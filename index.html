@@ -3,22 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Analytics Örneği</title>
+    <title>Kayıt Formu</title>
 
-   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G1Z73PSL8S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G1Z73PSL8S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
 
-  gtag('config', 'G-G1Z73PSL8S');
-</script>
+        gtag('js', new Date());
+        gtag('config', 'G-G1Z73PSL8S');
+    </script>
 </head>
-<body style="background-color:blue ;">
-    <h1>Aslan Doğan</h1>
-    <p>örnek</p>
+<body>
 
-    
+    <h2>Kayıt Ol</h2>
+
+    <form id="registerForm">
+        <input type="text" id="name" placeholder="Adınız" required>
+        <br><br>
+
+        <input type="email" id="email" placeholder="E-posta" required>
+        <br><br>
+
+        <input type="password" id="password" placeholder="Şifre" required>
+        <br><br>
+
+        <button type="submit">Kayıt Ol</button>
+    </form>
+
+    <script>
+        // Form açılınca sayfa görüntüleme zaten Analytics'e gider
+
+        document.getElementById("registerForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            // Firebase kayıt kodunu burada çalıştır
+
+            // Analytics'e kayıt olayı gönder
+            gtag('event', 'register', {
+                method: 'email'
+            });
+
+            alert("Kayıt başarılı!");
+        });
+    </script>
+
 </body>
 </html>
