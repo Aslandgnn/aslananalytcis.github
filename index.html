@@ -1,53 +1,60 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kayıt Formu</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kayıt Formu Firebase</title>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G1Z73PSL8S"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
-        gtag('js', new Date());
-        gtag('config', 'G-G1Z73PSL8S');
-    </script>
+  // Firebase yapılandırması
+  const firebaseConfig = {
+    apiKey: "AIzaSyBJbHel4phZ8-A5J0JlzmapxfldmsCHxVA",
+    authDomain: "aslana-fbf15.firebaseapp.com",
+    projectId: "aslana-fbf15",
+    storageBucket: "aslana-fbf15.firebasestorage.app",
+    messagingSenderId: "782134975632",
+    appId: "1:782134975632:web:1216eee4cb2935ffb5cc15"
+  };
+
+  // Firebase başlat
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Form submit işlemi
+  window.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("registerForm");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Kayıt başarılı!");
+          form.reset();
+        })
+        .catch((error) => {
+          alert("Hata: " + error.message);
+        });
+    });
+  });
+</script>
 </head>
 <body>
+<h2>Kayıt Ol</h2>
 
-    <h2>Kayıt Ol</h2>
-
-    <form id="registerForm">
-        <input type="text" id="name" placeholder="Adınız" required>
-        <br><br>
-
-        <input type="email" id="email" placeholder="E-posta" required>
-        <br><br>
-
-        <input type="password" id="password" placeholder="Şifre" required>
-        <br><br>
-
-        <button type="submit">Kayıt Ol</button>
-    </form>
-
-    <script>
-        // Form açılınca sayfa görüntüleme zaten Analytics'e gider
-
-        document.getElementById("registerForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-
-            // Firebase kayıt kodunu burada çalıştır
-
-            // Analytics'e kayıt olayı gönder
-            gtag('event', 'register', {
-                method: 'email'
-            });
-
-            alert("Kayıt başarılı!");
-        });
-    </script>
+<form id="registerForm">
+  <input type="text" id="name" placeholder="Adınız" required><br><br>
+  <input type="email" id="email" placeholder="E-posta" required><br><br>
+  <input type="password" id="password" placeholder="Şifre" required><br><br>
+  <button type="submit">Kayıt Ol</button>
+</form>
 
 </body>
 </html>
